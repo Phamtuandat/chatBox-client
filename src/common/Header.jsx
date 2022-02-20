@@ -128,7 +128,11 @@ const Header = () => {
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages
-                            .filter((x) => !x.isVisible(isLogged))
+                            .filter(
+                                (x) =>
+                                    x.isVisible(isLogged) &&
+                                    x.isDuplicate(history.location === x.path)
+                            )
                             .map((page) => (
                                 <Link key={page.label} component={RouteLink} to={page.path}>
                                     <Button
