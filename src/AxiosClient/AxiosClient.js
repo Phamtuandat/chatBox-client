@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const AxiosClient = axios.create({
-    baseURL: process.env.BASE_URL,
+    baseURL: 'https://realtimechatb.herokuapp.com/api',
 
     headers: {
         'content-Type': 'application/json',

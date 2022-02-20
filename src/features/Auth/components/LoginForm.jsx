@@ -38,7 +38,6 @@ function LoginForm({ onSubmit }) {
                     disabled={isSubmitting}
                     loading={isSubmitting}
                     loadingIndicator={<CircularProgress color="inherit" size={16} />}
-                    loadingPosition="start"
                 >
                     Login
                 </LoadingButton>

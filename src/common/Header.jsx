@@ -92,7 +92,7 @@ const Header = () => {
                             }}
                         >
                             {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                                <MenuItem key={page.label} onClick={handleCloseNavMenu}>
                                     <Typography textAlign="center">{page.label}</Typography>
                                 </MenuItem>
                             ))}
