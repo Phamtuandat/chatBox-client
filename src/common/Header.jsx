@@ -22,13 +22,13 @@ const pages = [
     {
         path: '/auth',
         label: 'Login',
-        isVisible: (isLogged) => isLogged,
+        isVisible: (isLogged) => !isLogged,
         isDuplicate: (isCurrent) => !isCurrent,
     },
     {
         path: '/chatPage',
         label: 'Chat app',
-        isVisible: (isLogged) => !isLogged,
+        isVisible: (isLogged) => isLogged,
         isDuplicate: (isCurrent) => !isCurrent,
     },
 ]
