@@ -109,8 +109,8 @@ function ChattingPage() {
                         </Toolbar>
                         <List>
                             {roomList.map((x) => (
-                                <>
-                                    <ListItem disablePadding key={x.id}>
+                                <Box key={x._id}>
+                                    <ListItem disablePadding>
                                         <ListItemButton
                                             sx={{ my: 1 }}
                                             onClick={() => {
@@ -135,7 +135,7 @@ function ChattingPage() {
                                         </ListItemButton>
                                     </ListItem>
                                     <Divider />
-                                </>
+                                </Box>
                             ))}
                         </List>
                         <Box display="flex">

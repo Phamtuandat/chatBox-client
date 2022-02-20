@@ -1,6 +1,4 @@
 import { Avatar, Box, IconButton, Paper, Typography } from '@mui/material'
-import PropTypes from 'prop-types'
-import React from 'react'
 import { useSelector } from 'react-redux'
 import dateConvert from '../../../utils/ConvertDate'
 
@@ -78,10 +76,6 @@ function Message({ message }) {
             </Box>
         </div>
     )
-}
-
-Message.propTypes = {
-    message: PropTypes.array,
 }
 
 export default Message

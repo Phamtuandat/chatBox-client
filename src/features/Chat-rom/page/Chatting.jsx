@@ -10,7 +10,7 @@ import ChatPanel from '../components/ChatPanel'
 import RoomChatHeader from '../components/RoomChatHeader'
 
 function Chatting(props) {
-    const socket = io.connect('https://realtimechatb.herokuapp.com/')
+    const socket = io.connect(process.env.SOCKET_URL)
 
     const dispatch = useDispatch()
 

@@ -24,7 +24,7 @@ export default function RoomChatHeader({ roomInfo, handleSearch }) {
                         <IconButton edge="end" color="inherit" aria-label="menu">
                             <AvatarGroup max={3} sx={{}}>
                                 {roomInfo.users?.map((user) => (
-                                    <Avatar alt={user.name} key={user.id} src={user.image} />
+                                    <Avatar alt={user.name} key={user._id} src={user.image} />
                                 ))}
                             </AvatarGroup>
                         </IconButton>

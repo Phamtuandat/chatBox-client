@@ -13,6 +13,7 @@ function ChatPanel({ handleSentMess = null, messList = [] }) {
     useEffect(() => {
         scrollRef.current?.scrollIntoView({ behavior: 'smooth' })
     }, [messList.length])
+
     return (
         <Box display="flex" flexDirection="column" sx={{ height: 'calc(100vh - 64px)' }}>
             <Box
@@ -27,8 +28,9 @@ function ChatPanel({ handleSentMess = null, messList = [] }) {
                     <Box
                         alignItems={user.id === message.postedByUser._id ? 'flex-end' : null}
                         ref={scrollRef}
+                        key={message._id}
                     >
-                        <Message key={message.id} message={message} />
+                        <Message message={message} />
                     </Box>
                 ))}
             </Box>
