@@ -2,7 +2,6 @@ import MenuIcon from '@mui/icons-material/Menu'
 import {
     AppBar,
     Avatar,
-    Button,
     Container,
     IconButton,
     Link,
@@ -13,10 +12,9 @@ import {
     Typography,
 } from '@mui/material'
 import { Box } from '@mui/system'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
-import { Link as RouteLink, NavLink } from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
 
 const pages = [
     {
@@ -106,26 +104,23 @@ const Header = () => {
                                         x.isDuplicate(history.location === x.path)
                                 )
                                 .map((page) => (
-                                    <MenuItem key={page.label} onClick={handleCloseNavMenu}>
-                                        <Link
-                                            component={NavLink}
-                                            to={`/${page.path}`}
-                                            textAlign="center"
-                                        >
+                                    <Link
+                                        component={NavLink}
+                                        to={`${page.path}`}
+                                        textAlign="center"
+                                    >
+                                        <MenuItem key={page.label} onClick={handleCloseNavMenu}>
                                             {page.label}
-                                        </Link>
-                                    </MenuItem>
+                                        </MenuItem>
+                                    </Link>
                                 ))}
                         </Menu>
                     </Box>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
-                    >
-                        LOGO
-                    </Typography>
+                    <Link component={NavLink} to="/">
+                        <Typography variant="h6" noWrap component="div" sx={{ color: 'white' }}>
+                            MY APP
+                        </Typography>
+                    </Link>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages
                             .filter(
@@ -134,13 +129,14 @@ const Header = () => {
                                     x.isDuplicate(history.location === x.path)
                             )
                             .map((page) => (
-                                <Link key={page.label} component={RouteLink} to={page.path}>
-                                    <Button
+                                <Link component={NavLink} to={`${page.path}`}>
+                                    <MenuItem
                                         onClick={handleCloseNavMenu}
                                         sx={{ my: 2, color: 'white', display: 'block' }}
+                                        key={page.label}
                                     >
                                         {page.label}
-                                    </Button>
+                                    </MenuItem>
                                 </Link>
                             ))}
                     </Box>
