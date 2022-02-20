@@ -1,14 +1,10 @@
-import { MenuOutlined } from '@mui/icons-material'
 import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined'
 import {
-    Avatar,
     Box,
     Button,
     Divider,
-    Drawer,
     Grid,
     Hidden,
-    IconButton,
     List,
     ListItem,
     ListItemButton,
@@ -22,7 +18,8 @@ import {
 import Backdrop from '@mui/material/Backdrop'
 import Fade from '@mui/material/Fade'
 import Modal from '@mui/material/Modal'
-import React, { useEffect, useState } from 'react'
+import queryString from 'query-string'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import RoomApi from '../../AxiosClient/RoomAPI'
@@ -30,7 +27,6 @@ import { Logout } from '../Auth/AuthSlice'
 import AddModal from '../Chat-rom/components/AddModal'
 import Chatting from './page/Chatting'
 import RoomChat from './page/RoomChat'
-import queryString from 'query-string'
 
 const style = {
     position: 'absolute',
@@ -96,68 +92,70 @@ function ChattingPage() {
     return (
         <Box display="flex">
             <Grid container spacing={1}>
-                <SwipeableDrawer
-                    anchor={'left'}
-                    onOpen={toggleDrawer(true)}
-                    open={anchor}
-                    onClose={toggleDrawer(false)}
-                >
-                    <Box
-                        sx={{ width: 250, bgcolor: 'background.paper' }}
-                        role="presentation"
-                        onClick={toggleDrawer(false)}
-                        onKeyDown={toggleDrawer(false)}
+                <Hidden mdUp>
+                    <SwipeableDrawer
+                        anchor={'left'}
+                        onOpen={toggleDrawer(true)}
+                        open={anchor}
+                        onClose={toggleDrawer(false)}
                     >
-                        <Toolbar color="primary">
-                            <Typography variant="h6">Room List</Typography>
-                        </Toolbar>
-                        <List>
-                            {roomList.map((x) => (
-                                <Box key={x._id}>
-                                    <ListItem disablePadding>
-                                        <ListItemButton
-                                            sx={{ my: 1 }}
-                                            onClick={() => {
-                                                history.push({
-                                                    pathname: history.location.pathname,
-                                                    search: queryString.stringify({
-                                                        roomId: x._id,
-                                                    }),
-                                                })
-                                                setAnchor(false)
-                                            }}
-                                        >
-                                            <ListItemIcon>
-                                                <GroupsOutlinedIcon />
-                                            </ListItemIcon>
-                                            <ListItemText
-                                                primary={x.name}
-                                                primaryTypographyProps={{
-                                                    fontSize: 18,
+                        <Box
+                            sx={{ width: 250, bgcolor: 'background.paper' }}
+                            role="presentation"
+                            onClick={toggleDrawer(false)}
+                            onKeyDown={toggleDrawer(false)}
+                        >
+                            <Toolbar color="primary">
+                                <Typography variant="h6">Room List</Typography>
+                            </Toolbar>
+                            <List>
+                                {roomList.map((x) => (
+                                    <Box key={x._id}>
+                                        <ListItem disablePadding>
+                                            <ListItemButton
+                                                sx={{ my: 1 }}
+                                                onClick={() => {
+                                                    history.push({
+                                                        pathname: history.location.pathname,
+                                                        search: queryString.stringify({
+                                                            roomId: x._id,
+                                                        }),
+                                                    })
+                                                    setAnchor(false)
                                                 }}
-                                            />
-                                        </ListItemButton>
-                                    </ListItem>
-                                    <Divider />
-                                </Box>
-                            ))}
-                        </List>
-                        <Box>
-                            <Button
-                                fullWidth
-                                color="secondary"
-                                variant="outlined"
-                                onClick={() => {
-                                    dispatch(Logout())
-                                    history.push('/auth')
-                                }}
-                                size="large"
-                            >
-                                Logout
-                            </Button>
+                                            >
+                                                <ListItemIcon>
+                                                    <GroupsOutlinedIcon />
+                                                </ListItemIcon>
+                                                <ListItemText
+                                                    primary={x.name}
+                                                    primaryTypographyProps={{
+                                                        fontSize: 18,
+                                                    }}
+                                                />
+                                            </ListItemButton>
+                                        </ListItem>
+                                        <Divider />
+                                    </Box>
+                                ))}
+                            </List>
+                            <Box>
+                                <Button
+                                    fullWidth
+                                    color="secondary"
+                                    variant="outlined"
+                                    onClick={() => {
+                                        dispatch(Logout())
+                                        history.push('/auth')
+                                    }}
+                                    size="large"
+                                >
+                                    Logout
+                                </Button>
+                            </Box>
                         </Box>
-                    </Box>
-                </SwipeableDrawer>
+                    </SwipeableDrawer>
+                </Hidden>
                 <Hidden lgDown>
                     <Grid item xs={12} md={12} lg={3}>
                         <Paper elevation={3} sx={{ height: '100vh' }}>

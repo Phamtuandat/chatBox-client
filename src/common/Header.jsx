@@ -14,23 +14,31 @@ import {
 } from '@mui/material'
 import { Box } from '@mui/system'
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { Link as RouteLink, NavLink } from 'react-router-dom'
 
 const pages = [
     {
         path: '/auth',
         label: 'Login',
+        isVisible: (isLogged) => isLogged,
+        isDuplicate: (isCurrent) => !isCurrent,
     },
     {
         path: '/chatPage',
         label: 'Chat app',
+        isVisible: (isLogged) => !isLogged,
+        isDuplicate: (isCurrent) => !isCurrent,
     },
 ]
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
 const Header = () => {
+    const isLogged = !!useSelector((state) => state.Auth.current?.token)
     const [anchorElNav, setAnchorElNav] = useState(null)
     const [anchorElUser, setAnchorElUser] = useState(null)
+    const history = useHistory()
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget)
@@ -91,11 +99,23 @@ const Header = () => {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            {pages.map((page) => (
-                                <MenuItem key={page.label} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page.label}</Typography>
-                                </MenuItem>
-                            ))}
+                            {pages
+                                .filter(
+                                    (x) =>
+                                        x.isVisible(isLogged) &&
+                                        x.isDuplicate(history.location === x.path)
+                                )
+                                .map((page) => (
+                                    <MenuItem key={page.label} onClick={handleCloseNavMenu}>
+                                        <Link
+                                            component={NavLink}
+                                            to={`/${page.path}`}
+                                            textAlign="center"
+                                        >
+                                            {page.label}
+                                        </Link>
+                                    </MenuItem>
+                                ))}
                         </Menu>
                     </Box>
                     <Typography
@@ -107,16 +127,18 @@ const Header = () => {
                         LOGO
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {pages.map((page) => (
-                            <Link key={page.label} component={RouteLink} to={page.path}>
-                                <Button
-                                    onClick={handleCloseNavMenu}
-                                    sx={{ my: 2, color: 'white', display: 'block' }}
-                                >
-                                    {page.label}
-                                </Button>
-                            </Link>
-                        ))}
+                        {pages
+                            .filter((x) => !x.isVisible(isLogged))
+                            .map((page) => (
+                                <Link key={page.label} component={RouteLink} to={page.path}>
+                                    <Button
+                                        onClick={handleCloseNavMenu}
+                                        sx={{ my: 2, color: 'white', display: 'block' }}
+                                    >
+                                        {page.label}
+                                    </Button>
+                                </Link>
+                            ))}
                     </Box>
 
                     <Box sx={{ flexGrow: 0 }}>
