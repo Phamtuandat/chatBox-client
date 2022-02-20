@@ -10,7 +10,7 @@ function Message({ message }) {
             <Box
                 display="flex"
                 sx={{
-                    padding: 1,
+                    pt: { xs: 0.5, md: 1 },
                 }}
                 flexDirection={user.id === message.postedByUser._id ? 'row-reverse' : null}
             >
@@ -22,7 +22,7 @@ function Message({ message }) {
                     <Paper
                         elevation={3}
                         sx={{
-                            padding: '10px',
+                            padding: { xs: '5px', md: '10px' },
                             mx: 1,
                             maxWidth: 680,
                             backgroundColor:
@@ -41,7 +41,7 @@ function Message({ message }) {
                                         alignSelf: 'center',
                                         fontWeight: '400',
                                         fontStyle: 'italic',
-                                        fontSize: '14px',
+                                        fontSize: { xs: '10px', md: '14px' },
                                         opacity: 0.8,
                                         marginBottom: '4px',
                                     }}
@@ -53,7 +53,7 @@ function Message({ message }) {
                                 variant="inherit"
                                 component="div"
                                 textAlign={user.id === message.postedByUser._id ? 'right' : null}
-                                sx={{ mx: 1 }}
+                                sx={{ mx: 2 }}
                             >
                                 {message.message}
                             </Typography>

@@ -17,7 +17,7 @@ export default function RoomChatHeader({ roomInfo, handleSearch }) {
                     <Typography variant="h6" color="inherit" component="div">
                         {roomInfo.name}
                     </Typography>
-                    <Box width="400px">
+                    <Box width={{ xs: '40px', md: '400px' }}>
                         <SearchForm onSubmit={handleSearch} handleAddUser={handleAddUser} />
                     </Box>
                     <Box>

@@ -15,6 +15,7 @@ import {
     ListItemIcon,
     ListItemText,
     Paper,
+    SwipeableDrawer,
     Toolbar,
     Typography,
 } from '@mui/material'
@@ -49,6 +50,7 @@ function ChattingPage() {
     const [roomList, setRoomList] = useState([])
     const current = useSelector((state) => state.Auth.current)
     const dispatch = useDispatch()
+
     const handleClose = () => {
         setOpen(false)
         setLoading(false)
@@ -64,7 +66,11 @@ function ChattingPage() {
         ;(async () => {
             const data = await RoomApi.getAll()
             setRoomList(data)
+            if (!history.location.search) {
+                setAnchor(true)
+            }
         })()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     const handleAddRoom = async (value) => {
         let data
@@ -79,30 +85,28 @@ function ChattingPage() {
         }
         setLoading(true)
     }
+    const toggleDrawer = (open) => (event) => {
+        if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+            return
+        }
+
+        setAnchor(open)
+    }
 
     return (
         <Box display="flex">
-            <Hidden lgUp>
-                <Box
-                    sx={{ width: '60px' }}
-                    display="flex"
-                    flexDirection="column"
-                    justifyContent="space-between"
-                >
-                    <IconButton size="large" onClick={() => setAnchor(true)}>
-                        <MenuOutlined sx={{ fontSize: '32px' }} />
-                    </IconButton>
-                    <IconButton size="small" sx={{ my: 1 }}>
-                        <Avatar src={current.user.image} alt={current.user.name} />
-                    </IconButton>
-                </Box>
-            </Hidden>
             <Grid container spacing={1}>
-                <Drawer anchor={'left'} open={anchor} onClose={() => setAnchor(false)}>
+                <SwipeableDrawer
+                    anchor={'left'}
+                    onOpen={toggleDrawer(true)}
+                    open={anchor}
+                    onClose={toggleDrawer(false)}
+                >
                     <Box
-                        sx={{ width: 300, bgcolor: 'background.paper' }}
-                        display="flex"
-                        flexDirection="column"
+                        sx={{ width: 250, bgcolor: 'background.paper' }}
+                        role="presentation"
+                        onClick={toggleDrawer(false)}
+                        onKeyDown={toggleDrawer(false)}
                     >
                         <Toolbar color="primary">
                             <Typography variant="h6">Room List</Typography>
@@ -138,7 +142,7 @@ function ChattingPage() {
                                 </Box>
                             ))}
                         </List>
-                        <Box display="flex">
+                        <Box>
                             <Button
                                 fullWidth
                                 color="secondary"
@@ -153,7 +157,7 @@ function ChattingPage() {
                             </Button>
                         </Box>
                     </Box>
-                </Drawer>
+                </SwipeableDrawer>
                 <Hidden lgDown>
                     <Grid item xs={12} md={12} lg={3}>
                         <Paper elevation={3} sx={{ height: '100vh' }}>

@@ -66,9 +66,7 @@ function Chatting(props) {
         <Box display="flex" flexDirection="column" sx={{ height: '100%' }}>
             {!location.search ? (
                 <Box display="flex" justifyContent="center" alignItems="center" height={'100%'}>
-                    <Typography color="primary" variant="h3">
-                        choose a room chat
-                    </Typography>
+                    <Typography color="primary" variant="h3"></Typography>
                 </Box>
             ) : (
                 <>
