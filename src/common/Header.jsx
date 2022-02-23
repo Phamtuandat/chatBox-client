@@ -57,17 +57,6 @@ const Header = () => {
         <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <Link component={NavLink} to="/">
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            component="div"
-                            sx={{ mr: 2, display: { xs: 'none', md: 'flex' }, color: 'white' }}
-                        >
-                            MY APP
-                        </Typography>
-                    </Link>
-
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                             size="large"
@@ -105,6 +94,7 @@ const Header = () => {
                                 )
                                 .map((page) => (
                                     <Link
+                                        key={page.path}
                                         component={NavLink}
                                         to={`${page.path}`}
                                         textAlign="center"
@@ -116,11 +106,17 @@ const Header = () => {
                                 ))}
                         </Menu>
                     </Box>
-                    <Link component={NavLink} to="/">
-                        <Typography variant="h6" noWrap component="div" sx={{ color: 'white' }}>
+                    <Link component={NavLink} sx={{ flexGrow: 1 }} to="/">
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="div"
+                            sx={{ mr: 2, color: 'white' }}
+                        >
                             MY APP
                         </Typography>
                     </Link>
+
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages
                             .filter(
@@ -129,7 +125,7 @@ const Header = () => {
                                     x.isDuplicate(history.location === x.path)
                             )
                             .map((page) => (
-                                <Link component={NavLink} to={`${page.path}`}>
+                                <Link component={NavLink} to={`${page.path}`} key={page.path}>
                                     <MenuItem
                                         onClick={handleCloseNavMenu}
                                         sx={{ my: 2, color: 'white', display: 'block' }}
