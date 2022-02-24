@@ -2,6 +2,7 @@ import { Button, Container, Grid, Paper, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { register, signin } from './AuthSlice'
 import LoginForm from './components/LoginForm'
 import RegisterForm from './components/RegisterForm'
@@ -13,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function AuthPage(prop) {
+    const history = useHistory()
     const dispatch = useDispatch()
     const classes = useStyles()
     const [authMode, setAuthMode] = useState(true)
@@ -25,6 +27,7 @@ function AuthPage(prop) {
             if (!authMode) {
                 await dispatch(register(value)).unwrap()
             }
+            history.push('chatPage')
         } catch (error) {
             console.log(error.response)
         }

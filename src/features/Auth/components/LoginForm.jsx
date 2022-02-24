@@ -2,7 +2,6 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { LoadingButton } from '@mui/lab'
 import { CircularProgress } from '@mui/material'
 import PropTypes from 'prop-types'
-import React from 'react'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { InputField } from '../../../components/Form-field/InputField'
@@ -16,13 +15,12 @@ function LoginForm({ onSubmit }) {
     const {
         control,
         handleSubmit,
-        formState: { isSubmitting, isSubmitted },
+        formState: { isSubmitting },
     } = useForm({
         resolver: yupResolver(schema),
     })
     const handleFormSubmit = async (value) => {
         await onSubmit(value)
-        console.log(isSubmitted)
     }
     return (
         <div>
