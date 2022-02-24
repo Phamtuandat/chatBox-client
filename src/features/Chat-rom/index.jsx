@@ -59,6 +59,7 @@ function ChattingPage() {
     const [anchor, setAnchor] = useState(false)
 
     useEffect(() => {
+        setAnchor(true)
         ;(async () => {
             const data = await RoomApi.getAll()
             setRoomList(data)
@@ -66,6 +67,7 @@ function ChattingPage() {
                 setAnchor(true)
             }
         })()
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     const handleAddRoom = async (value) => {

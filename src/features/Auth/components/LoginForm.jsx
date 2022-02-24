@@ -16,12 +16,13 @@ function LoginForm({ onSubmit }) {
     const {
         control,
         handleSubmit,
-        formState: { isSubmitting },
+        formState: { isSubmitting, isSubmitted },
     } = useForm({
         resolver: yupResolver(schema),
     })
     const handleFormSubmit = async (value) => {
         await onSubmit(value)
+        console.log(isSubmitted)
     }
     return (
         <div>

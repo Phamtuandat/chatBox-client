@@ -22,7 +22,12 @@ function SearchForm() {
         dispatch(userActions.fetchUserWithDebounce({ ...filter, name_like: value }))
     }
     useEffect(() => {
-        dispatch(userActions.fetchUser(filter))
+        let isCancel = false
+        if (!isCancel) {
+            dispatch(userActions.fetchUser(filter))
+        }
+
+        return () => (isCancel = true)
     }, [dispatch, filter])
     const { handleSubmit, control, reset } = useForm()
 
