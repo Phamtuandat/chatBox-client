@@ -1,5 +1,6 @@
 import { Button, Container, Grid, Paper, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
+import { useSnackbar } from 'notistack'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
@@ -19,17 +20,23 @@ function AuthPage(prop) {
     const classes = useStyles()
     const [authMode, setAuthMode] = useState(true)
 
+    const { enqueueSnackbar } = useSnackbar()
+
     const onSubmit = async (value) => {
         try {
             if (authMode) {
-                await dispatch(signin(value)).unwrap()
+                await dispatch(signin(value))
+                    .unwrap()
+                    .then(() => enqueueSnackbar('Login successfully!', { variant: 'success' }))
             }
             if (!authMode) {
-                await dispatch(register(value)).unwrap()
+                await dispatch(register(value))
+                    .unwrap()
+                    .then(() => enqueueSnackbar('Register successfully!', { variant: 'success' }))
             }
             history.push('chatPage')
         } catch (error) {
-            console.log(error.response)
+            enqueueSnackbar(error.message, { variant: 'error' })
         }
     }
 
