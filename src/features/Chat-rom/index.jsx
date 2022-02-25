@@ -1,3 +1,4 @@
+import AddIcon from '@mui/icons-material/Add'
 import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined'
 import {
     Box,
@@ -5,6 +6,7 @@ import {
     Divider,
     Grid,
     Hidden,
+    IconButton,
     List,
     ListItem,
     ListItemButton,
@@ -59,17 +61,17 @@ function ChattingPage() {
     const [anchor, setAnchor] = useState(false)
 
     useEffect(() => {
-        setAnchor(true)
         ;(async () => {
             const data = await RoomApi.getAll()
             setRoomList(data)
-            if (!history.location.search) {
-                setAnchor(true)
-            }
         })()
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+    useEffect(() => {
+        if (!history.location.search) {
+            setAnchor(true)
+            console.log('achor')
+        }
+    }, [history.location])
     const handleAddRoom = async (value) => {
         let data
         setLoading(true)
@@ -102,10 +104,17 @@ function ChattingPage() {
                         onClose={toggleDrawer(false)}
                     >
                         <Box
-                            sx={{ width: 250, bgcolor: 'background.paper' }}
+                            sx={{
+                                width: 250,
+                                bgcolor: 'background.paper',
+                                height: '100%',
+                                padding: 1,
+                            }}
                             role="presentation"
                             onClick={toggleDrawer(false)}
                             onKeyDown={toggleDrawer(false)}
+                            display="flex"
+                            flexDirection="column"
                         >
                             <Toolbar color="primary">
                                 <Typography variant="h6">Room List</Typography>
@@ -126,13 +135,17 @@ function ChattingPage() {
                                                     setAnchor(false)
                                                 }}
                                             >
-                                                <ListItemIcon>
+                                                <ListItemIcon sx={{ minWidth: 40 }}>
                                                     <GroupsOutlinedIcon />
                                                 </ListItemIcon>
                                                 <ListItemText
                                                     primary={x.name}
                                                     primaryTypographyProps={{
                                                         fontSize: 18,
+                                                        maxWidth: '156px',
+                                                        overflow: 'hidden',
+                                                        whiteSpace: 'nowrap',
+                                                        textOverflow: 'ellipsis',
                                                     }}
                                                 />
                                             </ListItemButton>
@@ -141,7 +154,10 @@ function ChattingPage() {
                                     </Box>
                                 ))}
                             </List>
-                            <Box>
+                            <IconButton sx={{ textAlign: 'center', width: '100%' }}>
+                                <AddIcon />
+                            </IconButton>
+                            <Box mt="auto">
                                 <Button
                                     fullWidth
                                     color="secondary"

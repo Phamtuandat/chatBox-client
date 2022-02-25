@@ -10,6 +10,7 @@ function ChatPanel({ handleSentMess = null, messList = [] }) {
     const handleSubmitForm = (value) => {
         handleSentMess(value)
     }
+
     useEffect(() => {
         scrollRef.current?.scrollIntoView({ behavior: 'smooth' })
     }, [messList.length])
