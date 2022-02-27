@@ -48,7 +48,6 @@ function ChattingPage() {
     const [roomList, setRoomList] = useState([])
     const current = useSelector((state) => state.Auth.current)
     const dispatch = useDispatch()
-
     const handleClose = () => {
         setOpen(false)
         setLoading(false)
@@ -61,16 +60,13 @@ function ChattingPage() {
     const [anchor, setAnchor] = useState(false)
 
     useEffect(() => {
+        setAnchor(true)
         ;(async () => {
             const data = await RoomApi.getAll()
             setRoomList(data)
         })()
     }, [])
-    useEffect(() => {
-        if (!history.location.search) {
-            setAnchor(true)
-        }
-    }, [history.location])
+
     const handleAddRoom = async (value) => {
         let data
         setLoading(true)
@@ -186,7 +182,7 @@ function ChattingPage() {
                 </Hidden>
                 <Grid item xs={12} md={12} lg={9}>
                     <Paper elevation={3} sx={{ height: '100vh' }}>
-                        <Chatting current={current} />
+                        <Chatting current={current} openAnchor={() => setAnchor(true)} />
                     </Paper>
                 </Grid>
             </Grid>

@@ -5,10 +5,14 @@ import IconButton from '@mui/material/IconButton'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import PropTypes from 'prop-types'
-import * as React from 'react'
+import React, { useEffect } from 'react'
 import SearchForm from './SearchForm'
 
-export default function RoomChatHeader({ roomInfo, handleSearch }) {
+export default function RoomChatHeader({ roomInfo, handleSearch, openAnchor }) {
+    useEffect(() => {
+        return () => openAnchor()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
     const handleAddUser = () => {}
     return (
         <Box sx={{ flexGrow: 1 }}>

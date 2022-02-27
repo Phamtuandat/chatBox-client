@@ -9,7 +9,7 @@ import { roomActions, roomInfoSelector } from '../ChatRoomSlice'
 import ChatPanel from '../components/ChatPanel'
 import RoomChatHeader from '../components/RoomChatHeader'
 
-function Chatting(props) {
+function Chatting({ openAnchor = null }) {
     const socket = io.connect('https://realtimechatb.herokuapp.com')
 
     const dispatch = useDispatch()
@@ -72,7 +72,11 @@ function Chatting(props) {
                 <>
                     <Box sx={{ height: 64 }}>
                         <Box>
-                            <RoomChatHeader roomInfo={roomInfo} handleClick={handleAddUser} />
+                            <RoomChatHeader
+                                roomInfo={roomInfo}
+                                handleClick={handleAddUser}
+                                openAnchor={() => openAnchor()}
+                            />
                         </Box>
                     </Box>
                     <Box
