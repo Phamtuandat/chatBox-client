@@ -69,7 +69,6 @@ function ChattingPage() {
     useEffect(() => {
         if (!history.location.search) {
             setAnchor(true)
-            console.log('achor')
         }
     }, [history.location])
     const handleAddRoom = async (value) => {
@@ -83,7 +82,7 @@ function ChattingPage() {
         } catch (error) {
             console.log(error.response)
         }
-        setLoading(true)
+        setLoading(false)
     }
     const toggleDrawer = (open) => (event) => {
         if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
