@@ -1,10 +1,11 @@
-import { Button, Container, Grid, Paper, Typography } from '@mui/material'
+import { Button, Container, Grid, Paper, Stack, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { useSnackbar } from 'notistack'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { register, signin } from './AuthSlice'
+import GoogleLoginForm from './components/GoogleLoginForm'
 import LoginForm from './components/LoginForm'
 import RegisterForm from './components/RegisterForm'
 
@@ -53,6 +54,7 @@ function AuthPage(prop) {
                     sx={{ my: 16, textAlign: 'center', padding: '0 28px 0 28px' }}
                 >
                     <Typography variant="h2">{authMode ? 'Login' : 'register'}</Typography>
+
                     {authMode ? (
                         <Grid item xs={12}>
                             <LoginForm onSubmit={onSubmit} />
@@ -62,7 +64,18 @@ function AuthPage(prop) {
                             <RegisterForm onSubmit={onSubmit} />
                         </Grid>
                     )}
-                    <Grid item xs={12} sx={{ my: 2 }}>
+                    <Grid item xs={12} sx={{ mb: 2 }}>
+                        <Stack
+                            direction="row"
+                            alignItems="center"
+                            justifyContent="center"
+                            spacing={2}
+                            sx={{ mb: 2 }}
+                        >
+                            <GoogleLoginForm />
+                            {/* <GoogleLoginForm />
+                            <GoogleLoginForm /> */}
+                        </Stack>
                         <Button
                             onClick={() => setAuthMode(!authMode)}
                             color="primary"
