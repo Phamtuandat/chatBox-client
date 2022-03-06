@@ -7,6 +7,9 @@ const AuthApi = {
     signIn(params) {
         return AxiosClient.post('/auth/signin', params)
     },
+    signInWithGoogle(params) {
+        return AxiosClient.post('/auth/signinWithGoogle', params)
+    },
 }
 
 export default AuthApi

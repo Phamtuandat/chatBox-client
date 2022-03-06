@@ -5,11 +5,7 @@ import GoogleLogin from 'react-google-login'
 
 function GoogleLoginForm({ handleSubmit }) {
     const responseGoogle = async (res) => {
-        try {
-            console.log(res)
-        } catch (error) {
-            console.log(error)
-        }
+        handleSubmit(res)
     }
     return (
         <Box width={'30%'}>

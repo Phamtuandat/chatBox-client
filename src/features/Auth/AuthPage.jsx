@@ -4,7 +4,7 @@ import { useSnackbar } from 'notistack'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { register, signin } from './AuthSlice'
+import { register, signin, signinWithGoogle } from './AuthSlice'
 import GoogleLoginForm from './components/GoogleLoginForm'
 import LoginForm from './components/LoginForm'
 import RegisterForm from './components/RegisterForm'
@@ -35,6 +35,21 @@ function AuthPage(prop) {
                     .unwrap()
                     .then(() => enqueueSnackbar('Register successfully!', { variant: 'success' }))
             }
+            history.push('chatPage')
+        } catch (error) {
+            enqueueSnackbar(error.message, { variant: 'error' })
+        }
+    }
+    const googleFormSubmit = async (res) => {
+        const payload = {
+            profileObj: res.profileObj,
+            googleId: res.googleId,
+        }
+
+        try {
+            await dispatch(signinWithGoogle(payload))
+                .unwrap()
+                .then(() => enqueueSnackbar('Login Successfully!', { variant: 'success' }))
             history.push('chatPage')
         } catch (error) {
             enqueueSnackbar(error.message, { variant: 'error' })
@@ -72,9 +87,7 @@ function AuthPage(prop) {
                             spacing={2}
                             sx={{ mb: 2 }}
                         >
-                            <GoogleLoginForm />
-                            {/* <GoogleLoginForm />
-                            <GoogleLoginForm /> */}
+                            <GoogleLoginForm handleSubmit={googleFormSubmit} />
                         </Stack>
                         <Button
                             onClick={() => setAuthMode(!authMode)}

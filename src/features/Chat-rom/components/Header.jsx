@@ -1,11 +1,12 @@
 import { AppBar, Avatar, Button, IconButton, Toolbar, Typography } from '@mui/material'
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { Logout } from '../../Auth/AuthSlice'
 import PropTypes from 'prop-types'
 
-function Header({ user }) {
+function Header() {
+    const user = useSelector((state) => state.Auth.current.user)
     const history = useHistory()
     const dispatch = useDispatch()
     const handleLogout = () => {
@@ -16,7 +17,7 @@ function Header({ user }) {
         <AppBar position="static">
             <Toolbar>
                 <IconButton size="large" edge="start" color="inherit" aria-label="menu">
-                    <Avatar alt={user.name} src={user.image} />
+                    <Avatar alt={user.name} src={user?.image} />
                 </IconButton>
                 <Typography variant="inherit" component="div" sx={{ flexGrow: 1 }}>
                     {user.name}

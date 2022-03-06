@@ -13,6 +13,12 @@ export const signin = createAsyncThunk('user/signin', async (payload) => {
     localStorage.setItem('token', data.token)
     return data
 })
+export const signinWithGoogle = createAsyncThunk('user/signinWithGoogle', async (payload) => {
+    const data = await AuthApi.signInWithGoogle(payload)
+    localStorage.setItem('user', JSON.stringify(data.user))
+    localStorage.setItem('token', data.token)
+    return data
+})
 
 const AuthSlice = createSlice({
     name: 'user',
@@ -37,10 +43,13 @@ const AuthSlice = createSlice({
         [signin.fulfilled]: (state, action) => {
             state.current = action.payload
         },
+        [signinWithGoogle.fulfilled]: (state, action) => {
+            state.current = action.payload
+        },
     },
 })
 
 const { actions, reducer } = AuthSlice
-export const { Logout } = actions
+export const { Logout, loginWithGoogle } = actions
 
 export default reducer
