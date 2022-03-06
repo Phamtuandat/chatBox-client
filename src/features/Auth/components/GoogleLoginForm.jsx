@@ -10,7 +10,7 @@ function GoogleLoginForm({ handleSubmit }) {
     return (
         <Box width={'30%'}>
             <GoogleLogin
-                clientId={process.env.GOOGLE_CIENTID}
+                clientId="72378177918-kgipe8gf2a5k36ns2645ibqjan0sqf10.apps.googleusercontent.com"
                 render={(renderProps) => (
                     <GoogleButton
                         onClick={renderProps.onClick}
