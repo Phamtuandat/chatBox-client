@@ -50,6 +50,6 @@ const AuthSlice = createSlice({
 })
 
 const { actions, reducer } = AuthSlice
-export const { Logout, loginWithGoogle } = actions
+export const { Logout } = actions
 
 export default reducer
